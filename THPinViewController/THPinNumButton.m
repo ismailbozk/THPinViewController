@@ -25,7 +25,7 @@
 
 - (instancetype)initWithNumber:(NSUInteger)number letters:(NSString *)letters
 {
-    self = [super init];
+    self = [self init];
     if (self)
     {
         _number = number;

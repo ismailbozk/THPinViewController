@@ -22,7 +22,7 @@
 
 - (instancetype)initWithDelegate:(id<THPinViewControllerDelegate>)delegate
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         _delegate = delegate;
         _backgroundColor = [UIColor whiteColor];

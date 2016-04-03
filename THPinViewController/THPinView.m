@@ -30,7 +30,7 @@
 
 - (instancetype)initWithDelegate:(id<THPinViewDelegate>)delegate
 {
-    self = [super init];
+    self = [self init];
     if (self)
     {
         _delegate = delegate;

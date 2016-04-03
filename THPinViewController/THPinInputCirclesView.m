@@ -25,7 +25,7 @@
 
 - (instancetype)initWithPinLength:(NSUInteger)pinLength
 {
-    self = [super init];
+    self = [self init];
     if (self)
     {
         _pinLength = pinLength;
