@@ -42,6 +42,10 @@ static const NSInteger THPinViewControllerContentViewTag = 14742;
 @property (nonatomic, assign) BOOL hideLetters; // hides the letters on the number buttons
 @property (nonatomic, assign) BOOL disableCancel; // hides the cancel button
 @property (nonatomic, assign) UIBlurEffectStyle backgroundBlurStyle;
+@property (nonatomic, strong) UIColor *cancelColor;
+@property (nonatomic, copy) NSString *cancelTitle;
+@property (nonatomic, strong) UIColor *deleteColor;
+@property (nonatomic, copy) NSString *deleteTitle;
 
 - (instancetype)initWithDelegate:(id<THPinViewControllerDelegate>)delegate;
 

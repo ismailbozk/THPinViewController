@@ -125,6 +125,14 @@
                                  @"numPadView" : _numPadView,
                                  @"bottomButton" : _bottomButton };
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vFormat options:0 metrics:metrics views:views]];
+        
+        _cancelColor = _deleteColor = [UIColor whiteColor];
+        NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"THPinViewController"
+                                                                                    ofType:@"bundle"]];
+        _cancelTitle = NSLocalizedStringFromTableInBundle(@"cancel_button_title", @"THPinViewController",
+                                                          bundle, nil);
+        _deleteTitle = NSLocalizedStringFromTableInBundle(@"delete_button_title", @"THPinViewController",
+                                                          bundle, nil);
     }
     return self;
 }
@@ -187,24 +195,46 @@
     [self updateBottomButton];
 }
 
+- (void)setCancelColor:(UIColor *)cancelColor
+{
+    _cancelColor = cancelColor;
+    [self updateBottomButton];
+}
+
+- (void)setCancelTitle:(NSString *)cancelTitle
+{
+    _cancelTitle = cancelTitle;
+    [self updateBottomButton];
+}
+
+- (void)setDeleteColor:(UIColor *)deleteColor
+{
+    _deleteColor = deleteColor;
+    [self updateBottomButton];
+}
+
+- (void)setDeleteTitle:(NSString *)deleteTitle
+{
+    _deleteTitle = deleteTitle;
+    [self updateBottomButton];
+}
+
 #pragma mark - Public
 
 - (void)updateBottomButton
 {
-    NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"THPinViewController"
-                                                                                ofType:@"bundle"]];
     if ([self.input length] == 0) {
         self.bottomButton.hidden = self.disableCancel;
-        [self.bottomButton setTitle:NSLocalizedStringFromTableInBundle(@"cancel_button_title", @"THPinViewController",
-                                                                       bundle, nil)
+        [self.bottomButton setTitle:self.cancelTitle
                            forState:UIControlStateNormal];
+        [self.bottomButton setTitleColor:self.cancelColor forState:UIControlStateNormal];
         [self.bottomButton removeTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomButton addTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         self.bottomButton.hidden = NO;
-        [self.bottomButton setTitle:NSLocalizedStringFromTableInBundle(@"delete_button_title", @"THPinViewController",
-                                                                       bundle, nil)
+        [self.bottomButton setTitle:self.deleteTitle
                            forState:UIControlStateNormal];
+        [self.bottomButton setTitleColor:self.deleteColor forState:UIControlStateNormal];
         [self.bottomButton removeTarget:self action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
         [self.bottomButton addTarget:self action:@selector(delete:) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -29,6 +29,10 @@
 @property (nonatomic, strong) UIColor *promptColor;
 @property (nonatomic, assign) BOOL hideLetters;
 @property (nonatomic, assign) BOOL disableCancel;
+@property (nonatomic, strong) UIColor *cancelColor;
+@property (nonatomic, copy) NSString *cancelTitle;
+@property (nonatomic, strong) UIColor *deleteColor;
+@property (nonatomic, copy) NSString *deleteTitle;
 
 - (instancetype)initWithDelegate:(id<THPinViewDelegate>)delegate;
 

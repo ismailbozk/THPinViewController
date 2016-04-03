@@ -20,6 +20,11 @@
 
 @implementation THPinViewController
 
+@synthesize cancelColor = _cancelColor;
+@synthesize cancelTitle = _cancelTitle;
+@synthesize deleteColor = _deleteColor;
+@synthesize deleteTitle = _deleteTitle;
+
 - (instancetype)initWithDelegate:(id<THPinViewControllerDelegate>)delegate
 {
     self = [self init];
@@ -156,6 +161,46 @@
     }
     _disableCancel = disableCancel;
     self.pinView.disableCancel = self.disableCancel;
+}
+
+- (void)setCancelTitle:(NSString *)cancelTitle
+{
+    [self.pinView setCancelTitle:cancelTitle];
+}
+
+- (NSString *)cancelTitle
+{
+    return self.pinView.cancelTitle;
+}
+
+- (void)setCancelColor:(UIColor *)cancelColor
+{
+    [self.pinView setCancelColor:cancelColor];
+}
+
+- (UIColor *)cancelColor
+{
+    return self.pinView.cancelColor;
+}
+
+- (void)setDeleteTitle:(NSString *)deleteTitle
+{
+    [self.pinView setDeleteTitle:deleteTitle];
+}
+
+- (NSString *)deleteTitle
+{
+    return self.pinView.deleteTitle;
+}
+
+- (void)setDeleteColor:(UIColor *)deleteColor
+{
+    [self.pinView setDeleteColor:deleteColor];
+}
+
+- (UIColor *)deleteColor
+{
+    return self.pinView.deleteColor;
 }
 
 #pragma mark - Blur
