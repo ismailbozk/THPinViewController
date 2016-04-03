@@ -30,6 +30,11 @@
         NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"THPinViewController"
                                                                                     ofType:@"bundle"]];
         _promptTitle = NSLocalizedStringFromTableInBundle(@"prompt_title", @"THPinViewController", bundle, nil);
+        _backgroundBlurStyle = UIBlurEffectStyleExtraLight;
+        
+        _pinView.backgroundColor = [UIColor clearColor];
+        self.view.backgroundColor = [UIColor clearColor];
+        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     }
     return self;
 }
@@ -106,6 +111,17 @@
     }
 }
 
+- (void)setBackgroundBlurStyle:(UIBlurEffectStyle)backgroundBlurStyle
+{
+    if (_backgroundBlurStyle != backgroundBlurStyle)
+    {
+        _backgroundBlurStyle = backgroundBlurStyle;
+        
+        [self removeBlurView];
+        [self addBlurView];
+    }
+}
+
 - (void)setPromptTitle:(NSString *)promptTitle
 {
     if ([self.promptTitle isEqualToString:promptTitle]) {
@@ -146,7 +162,8 @@
 
 - (void)addBlurView
 {
-    self.blurView = [[UIImageView alloc] initWithImage:[self blurredContentImage]];
+    UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:self.backgroundBlurStyle];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     self.blurView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view insertSubview:self.blurView belowSubview:self.pinView];
     NSDictionary *views = @{ @"blurView" : self.blurView };
@@ -165,20 +182,6 @@
     self.blurView = nil;
     [self.view removeConstraints:self.blurViewContraints];
     self.blurViewContraints = nil;
-}
-
-- (UIImage*)blurredContentImage
-{
-    UIView *contentView = [[[UIApplication sharedApplication] keyWindow] viewWithTag:THPinViewControllerContentViewTag];
-    if (! contentView) {
-        return nil;
-    }
-    UIGraphicsBeginImageContext(self.view.bounds.size);
-    [contentView drawViewHierarchyInRect:self.view.bounds afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return [image applyBlurWithRadius:20.0f tintColor:[UIColor colorWithWhite:1.0f alpha:0.25f]
-                saturationDeltaFactor:1.8f maskImage:nil];
 }
 
 #pragma mark - THPinViewDelegate

@@ -33,6 +33,8 @@
     self = [self init];
     if (self)
     {
+        self.backgroundColor = [UIColor clearColor];
+        
         _delegate = delegate;
         _input = [NSMutableString string];
         
